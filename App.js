@@ -1,25 +1,42 @@
-import AppLoading from 'expo-app-loading';
-import * as Font from 'expo-font';
-import React, { useState } from 'react';
-import { View } from 'react-native';
-import MealsNavigator from './src/navigations/MealsNavigator';
-const fetchFonts = () => Font.loadAsync({
-  'open-sans': require('./assets/Fonts/OpenSans-Regular.ttf'),
-  'open-sans-bold': require('./assets/Fonts/OpenSans-Bold.ttf'),
-  'open-sans-italic': require('./assets/Fonts/OpenSans-Italic.ttf'),
-})
+import * as React from 'react';
+import { DarkTheme, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import MealNavigator from './src/navigations/MealsNavigator';
+import BluePink from './src/themes/OrangePurple';
+
+
+
+const Darktheme = {
+  ...DarkTheme,
+  roundness: 2,
+  mode: 'exact',
+  colors: {
+    ...DarkTheme.colors,
+    ...BluePink
+  },
+};
+const Lighttheme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    ...BluePink
+  },
+};
+
 
 export default function App() {
-  const [loader, setLoader] = useState(true);
-  if (loader) {
-    return <AppLoading
-      startAsync={fetchFonts}
-      onFinish={() => setLoader(false)}
-      onError={(err) => console.log(err)}
-    />
+  const [isDarkTheme, setIsDarkTheme] = React.useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+    console.log('a')
   }
+
+  const theme = isDarkTheme ? Darktheme : Lighttheme;
   return (
-    <MealsNavigator></MealsNavigator>
+    <PaperProvider theme={theme}>
+      <MealNavigator toggleTheme={toggleTheme} ></MealNavigator>
+    </PaperProvider>
   );
 }
 

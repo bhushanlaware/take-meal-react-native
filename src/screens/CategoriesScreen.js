@@ -1,7 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { Title } from 'react-native-paper';
 import { CATEGORIES } from '../data/Categories';
 const CategoryCard = ({ title, color }) => {
   return (<View style={{
@@ -13,7 +13,7 @@ const CategoryCard = ({ title, color }) => {
     marginLeft: 10,
     marginBottom: 10,
     borderRadius: 5,
-  }}><Text>{title}</Text> </View>)
+  }}><Title style={{ color: 'white' }}>{title}</Title></View>)
 }
 
 export default function CategoriesScreen({ navigation }) {
@@ -27,12 +27,6 @@ export default function CategoriesScreen({ navigation }) {
       </FlatList>
     </View>
   );
-}
-CategoriesScreen.navigationOptions = {
-  headerTitle: "Meal Categories",
-  headerStyle: {
-    backgroundColor: 'red'
-  }
 }
 const styles = StyleSheet.create({
   container: {
